@@ -30,6 +30,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     func linkIt() {
         print("We Made It")
+        printPasteboard()
+    }
+    func printPasteboard() {
+        if let items = NSPasteboard.general().pasteboardItems {
+            for item in items {
+                for type in item.types {
+                    print("Type: \(type)")
+                    print("String: \(item.string(forType: type))")
+                }
+            }
+        }
     }
     func quit() {
         NSApplication.shared().terminate(self)
