@@ -17,7 +17,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Insert code here to initialize your application
         item = NSStatusBar.system().statusItem(withLength:
             NSVariableStatusItemLength)
-        item?.title = "Link"
+        item?.image = NSImage(named: "link")
         
         let menu = NSMenu()
         menu.addItem(NSMenuItem(title: "Link it", action: #selector(AppDelegate.linkIt), keyEquivalent: ""))
