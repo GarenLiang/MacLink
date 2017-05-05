@@ -11,14 +11,28 @@ import Cocoa
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
-
+    var item : NSStatusItem? = nil
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
+        item = NSStatusBar.system().statusItem(withLength:
+            NSVariableStatusItemLength)
+        item?.image = NSImage(named: "link")
+        
+        let menu = NSMenu()
+        menu.addItem(NSMenuItem(title: "Link it", action: #selector(AppDelegate.linkIt), keyEquivalent: ""))
+        menu.addItem(NSMenuItem(title: "Quit", action: #selector(AppDelegate.quit), keyEquivalent: ""))
+        item?.menu = menu
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
+    }
+    func linkIt() {
+        print("We Made It")
+    }
+    func quit() {
+        NSApplication.shared().terminate(self)
     }
 
 
