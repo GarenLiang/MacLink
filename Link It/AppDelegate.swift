@@ -29,7 +29,27 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Insert code here to tear down your application
     }
     func linkIt() {
-        print("We Made It")
+        if let items = NSPasteboard.general().pasteboardItems {
+            for item in items {
+                for type in item.types {
+                    if type == "public.utf8-plain-text" {
+                        if let url = item.string(forType: type) {
+                            
+                            NSPasteboard.general().clearContents()
+                            
+                            var actualURL = ""
+                            if url.hasPrefix("http://") || url.hasPrefix("https://") {
+                                actualURL = url
+                            } else {
+                                actualURL = "http://\(url)"
+                            }
+                            NSPasteboard.general().setString("<a href=\"http://www.google.com\">this is clickable</a>", forType: "public.html")
+                            NSPasteboard.general().setString(url, forType: "public.utf8-plain-text")
+                        }
+                    }
+                }
+            }
+        }
         printPasteboard()
     }
     func printPasteboard() {
