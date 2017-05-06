@@ -34,17 +34,23 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 for type in item.types {
                     if type == "public.utf8-plain-text" {
                         if let url = item.string(forType: type) {
-                            printPasteboard()
+                            
                             NSPasteboard.general().clearContents()
                             
+                            var actualURL = ""
+                            if url.hasPrefix("http://") || url.hasPrefix("https://") {
+                                actualURL = url
+                            } else {
+                                actualURL = "http://\(url)"
+                            }
                             NSPasteboard.general().setString("<a href=\"http://www.google.com\">this is clickable</a>", forType: "public.html")
-                            printPasteboard()
+                            NSPasteboard.general().setString(url, forType: "public.utf8-plain-text")
                         }
                     }
                 }
             }
         }
-        //printPasteboard()
+        printPasteboard()
     }
     func printPasteboard() {
         if let items = NSPasteboard.general().pasteboardItems {
