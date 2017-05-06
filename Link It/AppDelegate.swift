@@ -34,7 +34,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 for type in item.types {
                     if type == "public.utf8-plain-text" {
                         if let url = item.string(forType: type) {
-                            print(url)
+                            printPasteboard()
+                            NSPasteboard.general().clearContents()
+                            
+                            NSPasteboard.general().setString("<a href=\"http://www.google.com\">this is clickable</a>", forType: "public.html")
+                            printPasteboard()
                         }
                     }
                 }
