@@ -29,8 +29,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Insert code here to tear down your application
     }
     func linkIt() {
-        print("We Made It")
-        printPasteboard()
+        if let items = NSPasteboard.general().pasteboardItems {
+            for item in items {
+                for type in item.types {
+                    if type == "public.utf8-plain-text" {
+                        if let url = item.string(forType: type) {
+                            print(url)
+                        }
+                    }
+                }
+            }
+        }
+        //printPasteboard()
     }
     func printPasteboard() {
         if let items = NSPasteboard.general().pasteboardItems {
